@@ -122,7 +122,7 @@ GC日志开头的“[GC”和“[Full GC”说明了这次垃圾收集的停顿�
 给一个系统定位问题的时候，知识、经验是关键基础，数据是依据，工具是运用处理数据的手段。这里说的数据包括：运行日志、异常堆栈、GC日志、线程快照（threaddump/javacore文件）、堆转储快照（heapdump/hrpof文件）等。
 #### 4.1 JDK的命令行工具
 | 名称 | 主要作用 |  
-| ---- | ：---： |  
+| ---- | --- |  
 | jps | JVM Process Status Tool,显示指定系统内所有的HotSpot虚拟机进程 |  
 | jstate | JVM Statistics Monitoring Tool,用于收集HotSpot虚拟机各方面的运行数据 |  
 | jinfo | Configuration Info for Java,显示虚拟机配置信息 |  
