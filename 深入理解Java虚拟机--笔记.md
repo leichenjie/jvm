@@ -126,40 +126,10 @@ GC日志开头的“[GC”和“[Full GC”说明了这次垃圾收集的停顿�
 | jps | JVM Process Status Tool,显示指定系统内所有的HotSpot虚拟机进程 |  
 | jstate | JVM Statistics Monitoring Tool,用于收集HotSpot虚拟机各方面的运行数据 |  
 | jinfo | Configuration Info for Java,显示虚拟机配置信息 |  
-
-
+| jmap |Memory Map for Java,生成虚拟机的内存转储快照（heapdump文件） |  
+| jhat | JVM Heap Dump Browser,用于分析heapdump文件，它会建立一个HTTP/HTML服务器，让用户可以在浏览器上查看分析结果 |  
+| jstack | Stack Trace for Java,显示虚拟机的快照线程 |  
 
 ## 第三部分 虚拟机执行子系统
-| 水果        | 价格    |  数量  |  
-| --------   | -----  |----|  
-| 香蕉        | $1      |   5    |  
-| 苹果        | $1      |   6    |  
-| 草莓        | $1      |   7    |  
-<table>
-        <tr>
-            <th>设备</th>
-            <th>设备文件名</th>
-            <th>文件描述符</th>
-            <th>类型</th>
-        </tr>
-        <tr>
-            <th>键盘</th>
-            <th>/dev/stdin</th>
-            <th>0</th>
-            <th>标准输入</th>
-        </tr>
-        <tr>
-            <th>显示器</th>
-            <th>/dev/stdout</th>
-            <th>1</th>
-            <th>标准输出</th>
-        </tr>
-        <tr>
-            <th>显示器</th>
-            <th>/dev/stderr</th>
-            <th>2</th>
-            <th>标准错误输出</th>
-        </tr>
-    </table>
 ## 第四部分 程序编译与代码优化
 ## 第五部分 高效并发
