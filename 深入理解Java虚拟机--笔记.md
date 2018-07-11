@@ -168,24 +168,24 @@ VisualVM（All-in-One Java Troubleshooting Tool)是目前为止随JDK发布的�
 3. 无符号数属于基本数据类型，以u1、u2、u4、u8来分别代表1个字节、2个字节、4个字节、8个字节的无符号数，无符号数可以用来描述数据、索引引用、数量值或者按照UTF-8编码构成字符串值。
 4. 表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯的以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class文件本质上就是一张表，它由表6-1所示的数据项构成。  
 **表6-1 Class文件格式**  
-|类型|名称|数量|  
-|---|----|---|  
-|u4|magic|1|  
-|u2|minor_version|1|  
-|u2|major_version|1|  
-|u2|constant_pool_count|1|  
-|cp_info|constant_pool|constant_pool_count-1|  
-|u2|access_flags|1|  
-|u2|this_class|1|  
-|u2|super_class|1|  
-|u2|interfaces_count|1|  
-|u2|interfaces|interfaces_count|  
-|u2|fields_conut|1|  
-|field_info|fields|fields_count|  
-|u2|methods_count|1|  
-|method_info|methods|methods_count|  
-|u2|attributes_count|1|  
-|attribute_info|attributes|attributes_count|  
+| 类型 | 名称 | 数量 |  
+| --- | ---- | --- |  
+| u4 | magic | 1 |  
+| u2 | minor_version |1 |  
+| u2 | major_version | 1 |  
+| u2 | constant_pool_count | 1 |  
+| cp_info | constant_pool | constant_pool_count-1 |  
+| u2 | access_flags | 1 |  
+| u2 | this_class | 1 |  
+| u2 | super_class | 1 |  
+| u2 | interfaces_count | 1 |  
+| u2 | interfaces | interfaces_count |  
+| u2 | fields_conut | 1 |  
+| field_info | fields | fields_count|  
+| u2 | methods_count | 1 |  
+| method_info | methods | methods_count |  
+| u2 | attributes_count | 1 |  
+| attribute_info | attributes | attributes_count |  
 
 
 ## 第四部分 程序编译与代码优化
