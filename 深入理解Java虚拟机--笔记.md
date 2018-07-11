@@ -181,7 +181,7 @@ VisualVM（All-in-One Java Troubleshooting Tool)是目前为止随JDK发布的�
 | u2 | interfaces_count | 1 |  
 | u2 | interfaces | interfaces_count |  
 | u2 | fields_conut | 1 |  
-| field_info | fields | fields_count|  
+| field_info | fields | fields_count |  
 | u2 | methods_count | 1 |  
 | method_info | methods | methods_count |  
 | u2 | attributes_count | 1 |  
