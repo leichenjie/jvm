@@ -154,7 +154,39 @@ jstat [option vmid [interval [s|ms] [count]] ]
 JConsole（Java Monitoring and Management Console）是一种基于JMX的可视化监视、管理工具。
 #### 4.3.2 VisualVM:多合一故障处理工具
 VisualVM（All-in-One Java Troubleshooting Tool)是目前为止随JDK发布的功能最强大的运行监控和故障处理程序，并且可以预见在未来的一段时间内都是官方主力发展的虚拟机故障处理工具。
-
 ## 第三部分 虚拟机执行子系统
+### 第6章 类文件结构
+代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步。
+#### 6.1 概述
+由于最近10年虚拟机以及大量建立在虚拟机之上的程序语言如雨后春笋般出现并蓬勃发展，将我们编写的程序编译成二进制本地机器码已不再是唯一的选择，越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储方式。
+#### 6.2 无关性的基石
+各种不同平台的虚拟机与所有平台都统一使用的程序存储格式--字节码（ByteCode）是构成平台无关性的基石。  
+实现语言无关性的基础仍然是虚拟机和字节码存储格式。
+#### 6.3 Class类文件的结构
+1. Class文件是一组以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在Class文件之中，中间没有添加任何分隔符，这使得整个Class文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。  
+2. Class文件格式统一采用一种类似于C语言结构体的伪结构存储数据，这种伪结构中只有两种数据类型：无符号数和表。
+3. 无符号数属于基本数据类型，以u1、u2、u4、u8来分别代表1个字节、2个字节、4个字节、8个字节的无符号数，无符号数可以用来描述数据、索引引用、数量值或者按照UTF-8编码构成字符串值。
+4. 表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯的以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class文件本质上就是一张表，它由表6-1所示的数据项构成。  
+**表6-1 Class文件格式**  
+|类型|名称|数量|  
+|---|----|---|  
+|u4|magic|1|  
+|u2|minor_version|1|  
+|u2|major_version|1|  
+|u2|constant_pool_count|1|  
+|cp_info|constant_pool|constant_pool_count-1|  
+|u2|access_flags|1|  
+|u2|this_class|1|  
+|u2|super_class|1|  
+|u2|interfaces_count|1|  
+|u2|interfaces|interfaces_count|  
+|u2|fields_conut|1|  
+|field_info|fields|fields_count|  
+|u2|methods_count|1|  
+|method_info|methods|methods_count|  
+|u2|attributes_count|1|  
+|attribute_info|attributes|attributes_count|  
+
+
 ## 第四部分 程序编译与代码优化
 ## 第五部分 高效并发
