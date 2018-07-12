@@ -187,6 +187,18 @@ VisualVM（All-in-One Java Troubleshooting Tool)是目前为止随JDK发布的�
 | method_info | methods | methods_count |  
 | u2 | attributes_count | 1 |  
 | attribute_info | attributes | attributes_count |  
-
+##### 6.3.1 魔数与Class文件的版本
+1. 每个Class文件的头4个字节称为魔数（Magic Number），它的唯一作用是确定这个文件是否为一个能被虚拟机接收的Class文件。Class文件的魔数值为：0xCAFEBABE。  
+2. 紧接着魔数的4个字节存储的是Class文件的版本号：第5和第6个字节是次版本号（Minor Version），第7个和第8个字节是主版本号（Major Version）。  
+**图6-2** Java Class文件的结构
+![6.2](images/6.2.png)  
+注：notePad++使用十六进制编辑器（HEX-Editor）打开Class文件  
+##### 6.3.2 常量池
+1. 紧接着主版本号之后的是常量池入口。
+2. 由于常量池中常量的数量是不固定的，所以在常量池的入口需要放置一项u2类型的数据，代表常量池容量计数值（constant_pool_count)。与Java中语言习惯不一样的是，这个数据容量计数是从1而不是0开始的，常量池容量为十六进制数0x0016，即十进制的22，这就代表常量池中有21项常量，索引值范围为1 ~ 21。
+3. 常量池中主要存放两大类常量：字面量（Literal）和符号引用（Symbolic References）。字面量比较接近于Java语言层面的常量概念，如文本字符串、声明为final的常量值等。而符号引用则属于编译原理方面的概念，包括了下面三类常量：  
+- 类和接口的全限定名（Fully Qualified Name）  
+- 字段的名称和描述符（Descriptor）
+- 方法的名称和描述符
 ## 第四部分 程序编译与代码优化
 ## 第五部分 高效并发
