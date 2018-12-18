@@ -1,6 +1,6 @@
 # 深入理解Java虚拟机--笔记
 ## 前言
-1. Java的技术体系主要由支撑Java程序运行的虚拟机、提供各开发领域接口支持的Java API、Java编程语言及许多第三方Java框架（如Spring等）构成。
+1. Java的技术体系主要由支撑Java程序运行的虚拟机、提供各开发领域接口支持的Java API、Java编程语言及许多第三方Java框架（如Spring、Struts等）构成。
 ## 第一部分 走进Java
 1. 我们可以把Java程序设计语言、Java虚拟机、Java API类库这三部分统称为JDK，JDK是用于支持Java程序开发的最小环境。
 2. 我们可以把Java API类库中的Java SE API子集和Java虚拟机两部分统称为JRE（Java Runtime Environment），JRE是支持Java程序运行的标准环境。
@@ -61,6 +61,46 @@ Java虚拟机栈（Java Virtual Machine Stacks）也是线程私有的。虚拟�
 (3) 使用句柄最大的好处就是reference中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而reference本身不需要修改。  
 (4) 使用直接指针访问方式的最大好处就是速度更快。  
 #### 2.3 实战：OutOfMemoryError异常
+#### 2.3.1 Java堆溢出
+通过参数-XX:HeapDumpOnOutOfMemoryError可以让虚拟机在出现内存溢出异常时Dump出当前的内存堆转储快照以便事后进行分析。
+```  
+/**
+ * VM args: -Xms20m -Xmx20m -XX:+HeapDumpOnOutOfMemoryError
+ * @author leich
+ *
+ */
+public class HeapOOM {
+	
+	static class OOMObject{}
+	
+	public static void main(String[] args) {
+		List<OOMObject> list = new ArrayList<OOMObject>();
+		while (true) {
+			list.add(new OOMObject());
+		}
+	}
+}
+```  
+运行结果  
+```
+java.lang.OutOfMemoryError: Java heap space
+Dumping heap to java_pid33756.hprof ...
+Heap dump file created [27853644 bytes in 0.085 secs]
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.util.Arrays.copyOf(Unknown Source)
+	at java.util.Arrays.copyOf(Unknown Source)
+	at java.util.ArrayList.grow(Unknown Source)
+	at java.util.ArrayList.ensureExplicitCapacity(Unknown Source)
+	at java.util.ArrayList.ensureCapacityInternal(Unknown Source)
+	at java.util.ArrayList.add(Unknown Source)
+	at com.leicj.HeapOOM.main(HeapOOM.java:18)
+
+```  
+Java堆内存的OOM异常是实际应用中常见的内存溢出异常情况。
+(1) 生成堆转储快照  
+(2) 通过内存映像分析工具对dump出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（memory Overflow)
+(3) 如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots的引用链。
+#### 其他
 (1) -Xms -Xmx -Xss -XX:HeapDunpOnOutOfMemoryError -XX:MaxPermSize  -Xmn
 (2) 在单线程下，无论是由于栈帧太大还是虚拟机栈容量太小，当内存无法分配时，虚拟机抛出的都是StackOverflowError异常。  
 **待解决问题：**  
@@ -160,8 +200,9 @@ VisualVM（All-in-One Java Troubleshooting Tool)是目前为止随JDK发布的�
 #### 6.1 概述
 由于最近10年虚拟机以及大量建立在虚拟机之上的程序语言如雨后春笋般出现并蓬勃发展，将我们编写的程序编译成二进制本地机器码已不再是唯一的选择，越来越多的程序语言选择了与操作系统和机器指令集无关的、平台中立的格式作为程序编译后的存储方式。
 #### 6.2 无关性的基石
-各种不同平台的虚拟机与所有平台都统一使用的程序存储格式--字节码（ByteCode）是构成平台无关性的基石。  
-实现语言无关性的基础仍然是虚拟机和字节码存储格式。
+1. 各种不同平台的虚拟机与所有平台都统一使用的程序存储格式--字节码（ByteCode）是构成平台无关性的基石。  
+2. 实现语言无关性的基础仍然是虚拟机和字节码存储格式。  
+3. Java语言中的各种变量、关键字和运算符号的语义最终都是由多条字节码命令组合而成的，因此字节码命令所能提供的语义描述能力肯定比Java语言本身更加强大。  
 #### 6.3 Class类文件的结构
 1. Class文件是一组以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑的排列在Class文件之中，中间没有添加任何分隔符，这使得整个Class文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。  
 2. Class文件格式统一采用一种类似于C语言结构体的伪结构存储数据，这种伪结构中只有两种数据类型：无符号数和表。
