@@ -96,10 +96,10 @@ Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
 	at com.leicj.HeapOOM.main(HeapOOM.java:18)
 
 ```  
-Java堆内存的OOM异常是实际应用中常见的内存溢出异常情况。
-(1) 生成堆转储快照  
-(2) 通过内存映像分析工具对dump出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（memory Overflow)
-(3) 如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots的引用链。
+Java堆内存的OOM异常是实际应用中常见的内存溢出异常情况。  
+(1) 生成堆转储快照       
+(2) 通过内存映像分析工具对dump出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（memory Overflow)      
+(3) 如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots的引用链。  
 #### 其他
 (1) 常用参数  
 ![2.4](images/2.4.jpg)  
